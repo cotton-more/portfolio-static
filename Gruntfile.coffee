@@ -43,7 +43,7 @@ module.exports = (grunt) ->
                 files: [
                     expand: true
                     cwd: 'src/'
-                    src: ['components/**', 'vendor/**', 'favicon.ico']
+                    src: ['components/**', 'favicon.ico']
                     dest: '<%= app.static %>'
                 ]
 
