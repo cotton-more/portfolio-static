@@ -4,7 +4,7 @@ module.exports = (grunt) ->
     require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
 
     appConfig =
-        static: '../portfolio-app/static'
+        static: '../portfolio-app/app/static'
 
     grunt.initConfig
         app: appConfig
