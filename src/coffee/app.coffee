@@ -1,5 +1,3 @@
-'use strict'
-
 angular.module('portfolioNgApp', ['ngResource'])
     .config ['$routeProvider', '$locationProvider', ($route, $location) ->
         $route

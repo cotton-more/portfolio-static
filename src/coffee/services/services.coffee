@@ -1,6 +1,3 @@
-# vim: set ts=4 sw=4 sts=4:
-'use strict'
-
 angular.module('portfolioNgApp')
     .factory 'Persona', ['$http','$rootScope', ($http, $rootScope) ->
         STATUS = 'Email of logged in user'
@@ -105,20 +102,15 @@ angular.module('portfolioNgApp')
         MenuService.getTree = ->
             return tree if tree.length
 
-            uri = 'http://localhost\\:8000/menu/:action'
-            $resource(
-                uri,
-                {callback: 'JSON_CALLBACK'},
-                query: {method: 'JSONP'}
-                update:
-                    method: 'JSONP'
-            ).query {action: 'list'}, (data) ->
+            uri = 'http://localhost\\:5000/menu/:action'
+            $resource( uri ).query {action: 'list'}, (data) ->
                 menu = data.result
                 angular.forEach data.result, (item) ->
                     item.children = []
                     keepGoing = true
                     pushChild item
                 $rootScope.$broadcast(TREE_LOADED, menu)
+
             tree
 
         MenuService.onMenuLoaded = ($scope, handle) ->

@@ -1,5 +1,3 @@
-'use strict'
-
 angular.module('portfolioNgApp')
     .directive 'niPersonaAuth', ['Persona', '$compile', (Persona, $compile) ->
 
