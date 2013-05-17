@@ -27,6 +27,9 @@ module.exports = (grunt) ->
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
             less: 'src/less/main.less'
             unit: [ 'src/scripts/**/*.spec.coffee' ]
+            tpl: {
+                app: [ 'src/test.tpl.html' ]
+            }
 
         vendor:
             js: [
@@ -36,7 +39,9 @@ module.exports = (grunt) ->
                 'vendor/angular-resource/angular-resource.min.js'
             ]
 
-        clean: [ '.tmp', '<%= buildDir %>' ]
+        clean:
+            tmp: [ '.tmp' ]
+            build: [ '<%= buildDir %>' ]
 
         recess:
             build:
@@ -76,6 +81,29 @@ module.exports = (grunt) ->
             build:
                 src: [ '<%= buildDir %>/scripts/<%= pkg.name %>.js' ]
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js'
+
+        html2js:
+            app:
+                src: [ '<%= src.tpl.app %>' ]
+                dest: '<%= buildDir %>/templates/app.js'
+                module: 'template.app'
+
+        jshint:
+            files: [
+                '<%= buildDir %>/scripts/<%= pkg.name %>.js'
+                '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js'
+            ]
+            options:
+                curly: true,
+                eqeqeq: true,
+                immed: true,
+                latedef: true,
+                newcap: true,
+                noarg: true,
+                sub: true,
+                boss: true,
+                eqnull: true,
+                globals: {}
 
         ###
             Minify the sources!
@@ -120,10 +148,10 @@ module.exports = (grunt) ->
         'clean'
         'coffee:build'
         #'html2js'
-        #'jshint'
         #'karma:continuous'
         'concat'
         'ngmin:build'
+        'jshint'
         'uglify'
         'recess'
         #'index'
@@ -131,9 +159,10 @@ module.exports = (grunt) ->
     ]
 
     grunt.registerTask 'build-coffee', [
-        'clean'
+        'clean:tmp'
         'coffee:build'
         'concat:build'
         'ngmin:build'
+        'jshint'
         'uglify:build'
     ]
