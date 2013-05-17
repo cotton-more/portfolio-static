@@ -1,5 +1,5 @@
 angular.module('portfolioNgApp')
-    .factory 'Persona', ['$http','$rootScope', ($http, $rootScope) ->
+    .factory 'Persona', ($http, $rootScope) ->
         STATUS = 'Email of logged in user'
 
         _email = undefined
@@ -53,10 +53,9 @@ angular.module('portfolioNgApp')
             _email
 
         Persona
-    ]
 
 angular.module('portfolioNgApp')
-    .factory 'User', ['$http', '$rootScope', ($http) ->
+    .factory 'User', ($http) ->
 
         authToken = null
         isAuthenticated = false
@@ -73,10 +72,9 @@ angular.module('portfolioNgApp')
             $http.post
 
         User
-    ]
 
 angular.module('portfolioNgApp')
-    .factory 'Menu', ['$resource', '$http', '$rootScope', ($resource, $http, $rootScope) ->
+    .factory 'Menu', ($resource, $http, $rootScope) ->
         keepGoing = true
         tree = []
         menu = []
@@ -138,4 +136,3 @@ angular.module('portfolioNgApp')
                 params: menu
 
         MenuService
-    ]

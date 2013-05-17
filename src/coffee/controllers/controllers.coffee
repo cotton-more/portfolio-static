@@ -1,5 +1,3 @@
-"use strict"
-
 # Menu controller
 MenuCtrl = ($scope, Menu) ->
     $scope.tree = Menu.getTree()

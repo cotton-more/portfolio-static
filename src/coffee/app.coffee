@@ -1,5 +1,5 @@
 angular.module('portfolioNgApp', ['ngResource'])
-    .config ['$routeProvider', '$locationProvider', ($route, $location) ->
+    .config ($routeProvider, $locationProvider) ->
         $route
             .when '/',
                 templateUrl: '/views/index.html'
@@ -13,4 +13,3 @@ angular.module('portfolioNgApp', ['ngResource'])
                 redirectTo: '/'
 
         $location.html5Mode(off).hashPrefix('!')
-    ]

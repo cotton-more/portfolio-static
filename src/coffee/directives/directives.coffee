@@ -1,5 +1,5 @@
 angular.module('portfolioNgApp')
-    .directive 'niPersonaAuth', ['Persona', '$compile', (Persona, $compile) ->
+    .directive 'niPersonaAuth', (Persona, $compile) ->
 
         authTmpl = '<a><img class="persona" ng-click="request()" src="images/plain_sign_in_black.png"></a>'
         userTmpl = """
@@ -31,10 +31,9 @@ angular.module('portfolioNgApp')
                 $compile(element.contents())(scope)
 
         niPersonaAuth
-    ]
 
 angular.module('portfolioNgApp')
-    .directive 'niCard', [ ->
+    .directive 'niCard', ->
         template = """
         <div class="card">
             <h4 class="title">{{card.name}}</h4>
@@ -54,10 +53,9 @@ angular.module('portfolioNgApp')
                     }
 
         return niCard
-    ]
 
 angular.module('portfolioNgApp')
-    .directive 'niMenu', [ ->
+    .directive 'niMenu', ->
         niMenu =
             template: """
                 <ul>
@@ -72,10 +70,9 @@ angular.module('portfolioNgApp')
                 tree: '=niMenu'
 
         return niMenu
-    ]
 
 angular.module('portfolioNgApp')
-    .directive 'niMenuItem', ['$compile', 'Menu', ($compile, Menu) ->
+    .directive 'niMenuItem', ($compile, Menu) ->
         selectMenuElement = (item) ->
             Menu.currentMenu = item
             return
@@ -94,4 +91,3 @@ angular.module('portfolioNgApp')
             link: linker
 
         return niMenuItem
-    ]
