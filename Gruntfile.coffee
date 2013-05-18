@@ -26,9 +26,8 @@ module.exports = (grunt) ->
         src:
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
             less: 'src/less/main.less'
-            unit: [ 'src/scripts/**/*.spec.coffee' ]
             tpl: {
-                app: [ 'src/test.tpl.html' ]
+                cmp: [ 'src/template/**/*.html' ]
             }
 
         vendor:
@@ -84,9 +83,9 @@ module.exports = (grunt) ->
 
         html2js:
             app:
-                src: [ '<%= src.tpl.app %>' ]
-                dest: '<%= buildDir %>/templates/app.js'
-                module: 'template.app'
+                src: [ '<%= src.tpl.cmp %>' ]
+                dest: '.tmp/bootstrap.tpls.js'
+                module: 'ui.bootstrap.tpls'
 
         jshint:
             files: [
