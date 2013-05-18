@@ -13,7 +13,7 @@ module.exports = (grunt) ->
              * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>
              * <%= pkg.homepage %>
              *
-             * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
+             * Copyright © <%= grunt.template.today("yyyy") %> <%= pkg.author %>
              * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>
              */\n"""
         ###
@@ -25,8 +25,8 @@ module.exports = (grunt) ->
         ###
         src:
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
-            less: 'src/less/main.less'
-            tpl: {
+            less: 'src/less/stylesheet.less'
+            tpls: {
                 cmp: [ 'src/template/**/*.html' ]
             }
 
@@ -36,12 +36,22 @@ module.exports = (grunt) ->
                 'vendor/angular/angular.min.js'
                 'vendor/angular-cookies/angular-cookies.min.js'
                 'vendor/angular-resource/angular-resource.min.js'
+                'vendor/angular-ui/bootstrap/ui-bootstrap-0.3.0.js'
             ]
 
         clean:
             tmp: [ '.tmp' ]
             build: [ '<%= buildDir %>' ]
+            assets: [ '<%= buildDir %>/assets' ]
 
+        copy:
+            assets:
+                files: [
+                    expand: true
+                    cwd: 'src/'
+                    src: [ 'assets/**' ]
+                    dest: '<%= buildDir %>'
+                ]
         recess:
             build:
                 src: [ '<%= src.less %>' ],
@@ -49,9 +59,6 @@ module.exports = (grunt) ->
                 options:
                     compile: true
                     compress: true
-                    noUnderscores: false
-                    noIDs: false
-                    zeroUnits: false
 
         coffee:
             build:
@@ -82,9 +89,9 @@ module.exports = (grunt) ->
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js'
 
         html2js:
-            app:
-                src: [ '<%= src.tpl.cmp %>' ]
-                dest: '.tmp/bootstrap.tpls.js'
+            tpls:
+                src: [ '<%= src.tpls.cmp %>' ]
+                dest: '<%= buildDir %>/scripts/ui-bootstrap.tpls.js'
                 module: 'ui.bootstrap.tpls'
 
         jshint:
@@ -108,19 +115,30 @@ module.exports = (grunt) ->
             Minify the sources!
         ###
         uglify:
-            options:
-                banner: '<%= meta.banner %>'
             build:
+                options:
+                    banner: '<%= meta.banner %>'
                 files:
                     '<%= buildDir %>/scripts/<%= pkg.name %>.min.js': [ '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js' ]
+            tpls:
+                files:
+                    '<%= buildDir %>/scripts/ui-bootstrap.tpls.min.js': '<%= buildDir %>/scripts/ui-bootstrap.tpls.js'
 
         delta:
             options:
                 livereload: true
+            assets:
+                files: [ 'src/assets/**' ]
+                tasks: [ 'clean:assets', 'copy:assets' ]
+            tpls:
+                files: [ '<%= src.tpls.cmp %>' ]
+                tasks: [
+                    'html2js'
+                    'uglify:tpls'
+                ]
             coffee:
                 files: [ '<%= src.coffee %>' ]
                 tasks: [
-                    #'karma:unit:run'
                     'coffee:build'
                     'concat:build'
                     'ngmin:build'
@@ -129,7 +147,7 @@ module.exports = (grunt) ->
                 ]
             less:
                 files: [ '<%= src.less %>' ],
-                tasks: [ 'recess', 'timestamp' ]
+                tasks: [ 'recess' ]
 
     #Print a timestamp (useful for when watching)
     grunt.registerTask 'timestamp', ->
@@ -146,15 +164,13 @@ module.exports = (grunt) ->
     grunt.registerTask 'build', [
         'clean'
         'coffee:build'
-        #'html2js'
-        #'karma:continuous'
         'concat'
         'ngmin:build'
         'jshint'
+        'html2js'
         'uglify'
         'recess'
-        #'index'
-        #'copy'
+        'copy'
     ]
 
     grunt.registerTask 'build-coffee', [
