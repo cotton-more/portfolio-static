@@ -1,8 +1,8 @@
-angular.module('portfolioNgApp', ['ngResource'])
+angular.module('portfolioNgApp', ['ngResource', 'ui.bootstrap.tpls'])
     .config ($routeProvider, $locationProvider) ->
-        $route
+        $routeProvider
             .when '/',
-                templateUrl: '/views/index.html'
+                templateUrl: 'views/index.html'
             .when '/menu/:menuId/edit',
                 templateUrl: '/views/menu_edit.html'
                 controller: 'MenuEditCtrl'
@@ -12,4 +12,4 @@ angular.module('portfolioNgApp', ['ngResource'])
             .otherwise
                 redirectTo: '/'
 
-        $location.html5Mode(off).hashPrefix('!')
+        $locationProvider.html5Mode(off).hashPrefix('!')

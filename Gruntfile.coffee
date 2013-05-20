@@ -27,7 +27,8 @@ module.exports = (grunt) ->
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
             less: 'src/less/stylesheet.less'
             tpls: {
-                cmp: [ 'src/template/**/*.html' ]
+                ctpl: [ 'src/template/**/*.html' ]
+                atpl: [ 'src/views/**/*.html' ]
             }
 
         vendor:
@@ -90,7 +91,7 @@ module.exports = (grunt) ->
 
         html2js:
             tpls:
-                src: [ '<%= src.tpls.cmp %>' ]
+                src: [ '<%= src.tpls.ctpl %>', '<%= src.tpls.atpl %>' ]
                 dest: '<%= buildDir %>/scripts/ui-bootstrap.tpls.js'
                 module: 'ui.bootstrap.tpls'
 
@@ -131,7 +132,7 @@ module.exports = (grunt) ->
                 files: [ 'src/assets/**' ]
                 tasks: [ 'clean:assets', 'copy:assets' ]
             tpls:
-                files: [ '<%= src.tpls.cmp %>' ]
+                files: [ '<%= src.tpls.ctpl %>', '<%= src.tpls.atpl %>' ]
                 tasks: [
                     'html2js'
                     'uglify:tpls'

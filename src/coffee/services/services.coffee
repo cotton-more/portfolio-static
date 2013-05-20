@@ -6,7 +6,7 @@ angular.module('portfolioNgApp')
 
         _status = ->
             console.log '_status'
-            $http.jsonp('http://localhost:8000/auth/email?callback=JSON_CALLBACK')
+            $http.jsonp('http://localhost:5000/auth/email?callback=JSON_CALLBACK')
                 .success (data)->
                     console.log 'get email', data
                     $rootScope.$broadcast STATUS, data
@@ -100,8 +100,14 @@ angular.module('portfolioNgApp')
         MenuService.getTree = ->
             return tree if tree.length
 
-            uri = 'http://localhost\\:5000/menu/:action'
-            $resource( uri ).query {action: 'list'}, (data) ->
+            uri = 'http://127.0.0.1\\:5000/portfolio/menu/:action'
+            $resource(
+                uri,
+                {},
+                query:
+                    method: 'GET'
+                    isArray: false
+            ).query {action: 'list'}, (data) ->
                 menu = data.result
                 angular.forEach data.result, (item) ->
                     item.children = []
@@ -124,14 +130,14 @@ angular.module('portfolioNgApp')
                 callback = angular.noop
 
             $resource(
-                'http://localhost\\:8000/get_cards/:menuId',
+                'http://127.0.0.1\\:5000/portfolio/get_cards/:menuId',
                 {callback: 'JSON_CALLBACK'},
                 query: {method: 'JSONP'}
             ).query {menuId: menuId}, callback
 
         MenuService.save = (menu) ->
             menuId = menu.id
-            $http.jsonp 'http://localhost\\:8000/menu/:id/save', 
+            $http.jsonp 'http://localhost\\:5000/portfolio/menu/:id/save', 
                 id: 'test'
                 params: menu
 
