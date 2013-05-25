@@ -58,7 +58,7 @@ angular.module('portfolioNgApp')
     .directive 'niMenu', ->
         niMenu =
             template: """
-                <ul>
+                <ul data-ng-class="tree.unstyled">
                     <li data-ng-repeat="item in tree">
                         <!-- directive: ni-menu-item item -->
                     </li>
@@ -87,7 +87,11 @@ angular.module('portfolioNgApp')
         niMenuItem =
             restrict: 'M'
             replace: true
-            template: '<span><a ng-href="#!/menu/{{item.id}}/cards" ng-click="select(item)">{{item.name}}</a></span>'
+            template: """
+            <span>
+                <a ng-href="/portfolio/{{item.id}}/cards" ng-click="select(item)">{{item.name}}</a>
+            </span>
+            """
             link: linker
 
         return niMenuItem

@@ -131,8 +131,10 @@ angular.module('portfolioNgApp')
 
             $resource(
                 'http://127.0.0.1\\:5000/portfolio/get_cards/:menuId',
-                {callback: 'JSON_CALLBACK'},
-                query: {method: 'JSONP'}
+                {},
+                query:
+                    method: 'GET'
+                    isArray: false
             ).query {menuId: menuId}, callback
 
         MenuService.save = (menu) ->

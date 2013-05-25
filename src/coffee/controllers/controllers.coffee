@@ -1,6 +1,7 @@
 # Menu controller
 MenuCtrl = ($scope, Menu) ->
     $scope.tree = Menu.getTree()
+    $scope.tree.unstyled = 'unstyled'
     return
 
 MenuCtrl.$inject = ['$scope', 'Menu']
@@ -8,11 +9,13 @@ angular.module('portfolioNgApp').controller 'MenuCtrl', MenuCtrl
 
 
 # List menu's cards
-CardListCtrl = ($scope, $routeParams, Menu) ->
+CardListCtrl = ($scope, $routeParams, baseUrl, Menu) ->
     menuId = parseInt $routeParams.menuId, 10
 
     editMode = false
     localMenu = undefined
+
+    $scope.baseUrl = baseUrl
 
     $scope.isInEditMode = ->
         editMode
@@ -59,5 +62,5 @@ CardListCtrl = ($scope, $routeParams, Menu) ->
 
     return
 
-CardListCtrl.$inject = ['$scope', '$routeParams', 'Menu']
+CardListCtrl.$inject = ['$scope', '$routeParams', 'baseUrl', 'Menu']
 angular.module('portfolioNgApp').controller 'CardListCtrl', CardListCtrl
