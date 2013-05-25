@@ -4,29 +4,31 @@ angular.module('portfolioNgApp')
 
         _email = undefined
 
+        navigator.id.watch
+            onlogin: (assertion) ->
+                console.log 'onlogin', assertion
+                $http.get('http://127.0.0.1:5000/users/login',
+                    params:
+                        assertion: assertion
+                ).success (data)->
+                    console.log 'verifyAssertion.success', data
+                    $rootScope.$broadcast STATUS, data
+                return
+            onlogout: ->
+                console.log 'onlogout'
+                $http.get('http://127.0.0.1:5000/users/logout')
+                    .success (data)->
+                        console.log 'auth/logout', data
+                        $rootScope.$broadcast STATUS, data
+                return
+
         _status = ->
             console.log '_status'
-            $http.jsonp('http://localhost:5000/auth/email?callback=JSON_CALLBACK')
+            $http.get('http://127.0.0.1:5000/users/email')
                 .success (data)->
                     console.log 'get email', data
                     $rootScope.$broadcast STATUS, data
-                    navigator.id.watch
-                        loggedInUser: data.email
-                        onlogin: (assertion) ->
-                            console.log 'onlogin'
-                            $http.jsonp('http://localhost:8000/auth/login',
-                                params:
-                                    callback: 'JSON_CALLBACK'
-                                    assertion: assertion
-                            ).success (data)->
-                                console.log 'verifyAssertion.success', data
-                                $rootScope.$broadcast STATUS, data
-                        onlogout: ->
-                            console.log 'onlogout'
-                            $http.jsonp('http://localhost:8000/auth/logout?callback=JSON_CALLBACK')
-                                .success (data)->
-                                    console.log 'auth/logout', data
-                                    $rootScope.$broadcast STATUS, data
+            return
 
 
         Persona = {}
@@ -55,21 +57,11 @@ angular.module('portfolioNgApp')
         Persona
 
 angular.module('portfolioNgApp')
-    .factory 'User', ($http) ->
+    .factory 'Security', ()
 
-        authToken = null
-        isAuthenticated = false
+angular.module('portfolioNgApp')
+    .factory 'User', (Security) ->
 
-        User = {}
-
-        User.getEmail = ->
-            'vansanblch@gmail.com'
-
-        User.isAuthenticated = ->
-            return isAuthenticated
-
-        User.login = ->
-            $http.post
 
         User
 
@@ -139,7 +131,7 @@ angular.module('portfolioNgApp')
 
         MenuService.save = (menu) ->
             menuId = menu.id
-            $http.jsonp 'http://localhost\\:5000/portfolio/menu/:id/save', 
+            $http.jsonp 'http://127.0.0.1\\:5000/portfolio/menu/:id/save', 
                 id: 'test'
                 params: menu
 

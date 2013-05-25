@@ -1,9 +1,9 @@
 angular.module('portfolioNgApp')
     .directive 'niPersonaAuth', (Persona, $compile) ->
 
-        authTmpl = '<a><img class="persona" ng-click="request()" src="images/plain_sign_in_black.png"></a>'
+        authTmpl = '<a><img class="persona" ng-click="request()" src="/static/images/plain_sign_in_black.png"></a>'
         userTmpl = """
-            <a>{{email}} <span ng-click="signout()" class="button">Sign out</span></a>
+            <a>{{email}} <span ng-click="signout()">Sign out</span>
         """
 
         niPersonaAuth =
@@ -72,7 +72,7 @@ angular.module('portfolioNgApp')
         return niMenu
 
 angular.module('portfolioNgApp')
-    .directive 'niMenuItem', ($compile, Menu) ->
+    .directive 'niMenuItem', ($compile, Menu, Persona) ->
         selectMenuElement = (item) ->
             Menu.currentMenu = item
             return
@@ -83,6 +83,8 @@ angular.module('portfolioNgApp')
             if scope.item.children.length
                 childitem = $compile('<!-- directive: ni-menu item.children -->')(scope)
                 elm.append childitem
+
+        console.log Persona.
 
         niMenuItem =
             restrict: 'M'
