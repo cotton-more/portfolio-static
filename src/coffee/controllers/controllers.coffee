@@ -1,66 +1,20 @@
 # Menu controller
-MenuCtrl = ($scope, Menu) ->
-    $scope.tree = Menu.getTree()
-    $scope.tree.unstyled = 'unstyled'
+PortfolioCtrl = ($scope, Portfolio) ->
+    $scope.list = Portfolio.projects()
     return
 
-MenuCtrl.$inject = ['$scope', 'Menu']
-angular.module('portfolioNgApp').controller 'MenuCtrl', MenuCtrl
+PortfolioCtrl.$inject = ['$scope', 'Portfolio']
+angular.module('portfolioNgApp').controller 'PortfolioCtrl', PortfolioCtrl
 
 
-# List menu's cards
-CardListCtrl = ($scope, $routeParams, baseUrl, Menu) ->
+# List project's cards
+CardListCtrl = ($scope, $routeParams, baseUrl, Portfolio) ->
     menuId = parseInt $routeParams.menuId, 10
-
-    editMode = false
-    localMenu = undefined
-
     $scope.baseUrl = baseUrl
+    $scope.cards = Portfolio.cards {
+        id: menuId
+    }
 
-    $scope.isInEditMode = ->
-        editMode
 
-    $scope.editMode = () ->
-        editMode = on
-        localMenu = angular.copy $scope.menu
-        return
-
-    $scope.viewMode = ->
-        angular.copy localMenu, $scope.menu
-        editMode = off
-        localMenu = undefined
-        return
-
-    $scope.save = (menu) ->
-        Menu.save menu
-        return
-
-    $scope.menu = Menu.currentMenu
-
-    currentIndex = 0;
-    total = false
-
-    $scope.cards = Menu.getCards menuId
-
-    $scope.isLinkDisabled = (direction) ->
-        result = false
-        if direction is 'previous' and currentIndex is 0
-            result = true
-
-        if direction is 'next' and currentIndex is total
-            result = true
-
-        result
-
-    Menu.onMenuLoaded $scope, (menu) ->
-        angular.forEach menu, (item) ->
-            if item.id is menuId
-                $scope.menu = item
-            return
-
-        return
-
-    return
-
-CardListCtrl.$inject = ['$scope', '$routeParams', 'baseUrl', 'Menu']
+CardListCtrl.$inject = ['$scope', '$routeParams', 'baseUrl', 'Portfolio']
 angular.module('portfolioNgApp').controller 'CardListCtrl', CardListCtrl

@@ -55,45 +55,19 @@ angular.module('portfolioNgApp')
         return niCard
 
 angular.module('portfolioNgApp')
-    .directive 'niMenu', ->
-        niMenu =
-            template: """
-                <ul data-ng-class="tree.unstyled">
-                    <li data-ng-repeat="item in tree">
-                        <!-- directive: ni-menu-item item -->
-                    </li>
-                </ul>
-            """
+    .directive 'niProjectList', ->
+        niProjectList =
+            templateUrl: 'views/project-list.html'
             replace: true
             restrict: 'M'
-            scope:
-                tree: '=niMenu'
 
-        return niMenu
+        return niProjectList
 
 angular.module('portfolioNgApp')
-    .directive 'niMenuItem', ($compile, Menu, Persona) ->
-        selectMenuElement = (item) ->
-            Menu.currentMenu = item
-            return
-
-        linker = (scope, elm) ->
-            scope.select = selectMenuElement
-
-            if scope.item.children.length
-                childitem = $compile('<!-- directive: ni-menu item.children -->')(scope)
-                elm.append childitem
-
-        console.log Persona.
-
-        niMenuItem =
-            restrict: 'M'
+    .directive 'niProjectItem', ->
+        niProjectItem =
+            templateUrl: 'views/project-item.html'
             replace: true
-            template: """
-            <span>
-                <a ng-href="/portfolio/{{item.id}}/cards" ng-click="select(item)">{{item.name}}</a>
-            </span>
-            """
-            link: linker
+            restrict: 'M'
 
-        return niMenuItem
+        niProjectItem
