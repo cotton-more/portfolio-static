@@ -65,9 +65,13 @@ module.exports = (grunt) ->
             build:
                 options:
                     bare: true
-                    join: true
-                files:
-                    '.tmp/scripts/<%= pkg.name %>.js': [ '<%= src.coffee %>' ]
+                files: [
+                    expand: true,
+                    cwd: 'src/coffee',
+                    src: [ '**/*.coffee' ],
+                    dest: '.tmp/scripts/',
+                    ext: '.js'
+                ]
 
         concat:
             build:
@@ -97,24 +101,26 @@ module.exports = (grunt) ->
 
         jshint:
             files: [
+                '.tmp/scripts/**/*.js'
                 '<%= buildDir %>/scripts/<%= pkg.name %>.js'
                 '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js'
             ]
             options:
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                sub: true,
-                boss: true,
-                eqnull: true,
-                globals: {}
+                curly: true
+                eqeqeq: true
+                immed: true
+                latedef: true
+                newcap: true
+                noarg: true
+                sub: true
+                boss: true
+                eqnull: true
+                globals:
+                    $: true
+                    jQuery: true
+                    angular: true
 
-        ###
-            Minify the sources!
-        ###
+        # Minify the sources!
         uglify:
             build:
                 options:
@@ -144,15 +150,11 @@ module.exports = (grunt) ->
                     'concat:build'
                     'ngmin:build'
                     'uglify:build'
-                    'timestamp'
                 ]
             less:
                 files: [ '<%= src.less %>' ],
                 tasks: [ 'recess' ]
 
-    #Print a timestamp (useful for when watching)
-    grunt.registerTask 'timestamp', ->
-        grunt.log.subhead Date()
 
     grunt.renameTask 'watch', 'delta'
     grunt.registerTask 'watch', [
