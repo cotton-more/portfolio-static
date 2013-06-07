@@ -87,9 +87,8 @@ angular.module('portfolioNgApp')
 
 
         Portfolio.getProjects = ->
-            portfolio.projects ((data) ->
+            portfolio.projects (data) ->
                 projects = data.result
-            )
 
 
         Portfolio.getCards = (projectId) ->
