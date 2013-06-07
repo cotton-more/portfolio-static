@@ -32,34 +32,11 @@ angular.module('portfolioNgApp')
 
         niPersonaAuth
 
+
 angular.module('portfolioNgApp')
-    .directive 'niCard', ->
-        template = """
-        <div class="card">
-            <h4 class="title">{{card.name}}</h4>
-            <img src="http://placehold.it/600x480/&text={{card.name}}">
-            <p>{{card.about}}</p>
-        </div>
-        """
-        niCard =
-            restrict: 'M'
-            replace: true
-            template: template
-            link: (scope) ->
-                if scope.$last
-                    $('#cards-list').foundation 'orbit', {
-                        bullets: off
-                        slide_number: off
-                    }
-
-        return niCard
-
-
-angular.module('portfolioNgApp').controller 'ProjectController', ['$scope', 'Portfolio', ($scope, Portfolio) ->
-    $scope.select = (item) ->
-        Portfolio.active item
-]
-
+    .controller 'ProjectController', ($scope, Portfolio) ->
+        $scope.select = (item) ->
+            Portfolio.active item
 
 angular.module('portfolioNgApp')
     .directive 'niProjectList', ->
