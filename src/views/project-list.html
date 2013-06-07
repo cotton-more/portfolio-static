@@ -1,5 +1,8 @@
 <ul class="nav nav-list">
-    <li data-ng-repeat="item in list.result" class="active">
-    <!-- directive: ni-project-item item -->
+    <li data-ng-repeat="item in list.result">
+        <a data-ng-href="/portfolio/{{item.id}}/cards" data-ng-click="select(item)">
+            {{ item.name }}
+            <span data-ng-repeat="tag in item.tags" class="label">{{ tag }}</span>
+        </a>
     </li>
 </ul>
