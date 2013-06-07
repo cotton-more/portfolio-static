@@ -67,6 +67,7 @@ angular.module('portfolioNgApp')
 angular.module('portfolioNgApp')
     .factory 'Portfolio', ($resource, $http, $rootScope) ->
 
+        projects = []
         active = undefined
 
 
@@ -99,6 +100,12 @@ angular.module('portfolioNgApp')
 
         Portfolio.active = (project = undefined) ->
             return active if project is undefined and active
+
+            angular.forEach projects, (item) ->
+                if item.id isnt project.id
+                    item.active = false
+
+            project.active = true
 
             active = project
 
