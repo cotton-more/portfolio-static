@@ -55,7 +55,7 @@ angular.module('portfolioNgApp')
         return niCard
 
 
-angular.module('portfolioNgApp').controller 'ProjectItemController', ['$scope', 'Portfolio', ($scope, Portfolio) ->
+angular.module('portfolioNgApp').controller 'ProjectController', ['$scope', 'Portfolio', ($scope, Portfolio) ->
     $scope.select = (item) ->
         Portfolio.active item
 ]
@@ -64,8 +64,8 @@ angular.module('portfolioNgApp').controller 'ProjectItemController', ['$scope', 
 angular.module('portfolioNgApp')
     .directive 'niProjectList', ->
         niProjectList =
+            controller: 'ProjectController'
             templateUrl: 'views/project-list.html'
-            controller: 'ProjectItemController'
             replace: true
             restrict: 'M'
 
