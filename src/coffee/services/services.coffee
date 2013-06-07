@@ -58,14 +58,9 @@ angular.module('portfolioNgApp')
 
 
 angular.module('portfolioNgApp')
-    .factory 'Security', (Persona) ->
-        Security = {}
+    .factory 'Portfolio', ($resource, $rootScope, Persona) ->
 
-        return Security
-
-
-angular.module('portfolioNgApp')
-    .factory 'Portfolio', ($resource, $http, $rootScope) ->
+        PROJECTS_LOADED = 'Projects loaded'
 
         projects = []
         active = undefined
@@ -88,8 +83,21 @@ angular.module('portfolioNgApp')
 
 
         Portfolio.getProjects = ->
-            portfolio.projects (data) ->
-                projects = data.result
+            projects = portfolio.projects (data) ->
+                $rootScope.$broadcast PROJECTS_LOADED, data.result
+
+
+        Portfolio.onProjectLoaded = ($scope, handle) ->
+            console.log 'Portfolio.onProjectLoaded', arguments
+
+            $scope.$on PROJECTS_LOADED, (event, message) ->
+                console.log 'Portfolio.onProjectLoaded.$on', arguments
+                handle message
+
+            return
+
+
+
 
 
         Portfolio.getCards = (projectId) ->
@@ -105,9 +113,10 @@ angular.module('portfolioNgApp')
                 if item.id isnt project.id
                     item.active = false
 
-            project.active = true
+            if project
+                project.active = true
 
             active = project
 
-        return Portfolio
 
+        return Portfolio

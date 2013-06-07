@@ -3,16 +3,13 @@ angular.module('portfolioNgApp', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.tp
         $routeProvider
             .when baseUrl,
                 templateUrl: 'views/portfolio.html'
-            .when '/menu/:menuId/edit',
-                templateUrl: '/views/menu_edit.html'
-                controller: 'MenuEditCtrl'
-            .when baseUrl + '/:menuId/cards',
+            .when '/project/:menuId/view',
                 templateUrl: 'views/cardsList.html'
                 controller: 'CardListCtrl'
             .otherwise
                 redirectTo: baseUrl
 
-        $locationProvider.html5Mode(on)
+        $locationProvider.html5Mode(off).hashPrefix('!')
         return
 
-    .constant('baseUrl', '/portfolio')
+    .constant('baseUrl', '/index')

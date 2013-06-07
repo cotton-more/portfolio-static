@@ -1,6 +1,6 @@
 <ul class="nav nav-list">
     <li data-ng-repeat="item in list.result" ng-class="{active: item.active}">
-        <a data-ng-href="/portfolio/{{item.id}}/cards" data-ng-click="select(item)">
+        <a data-ng-href="#!/project/{{item.id}}/view" data-ng-click="select(item)">
             {{ item.name }}
             <span data-ng-repeat="tag in item.tags" class="label">{{ tag }}</span>
         </a>
