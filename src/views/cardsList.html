@@ -1,11 +1,15 @@
-<h1>{{ menu.name }}</h1>
+<h1>{{ project.name }}</h1>
 <a class="btn btn-link" data-ng-href="{{ baseUrl }}"><i class="icon icon-arrow-left"></i> Back</a>
 <carousel interval="myInterval">
     <slide ng-repeat="card in cards.result" active="card.active">
-        <img ng-src="http://placehold.it/600x400" style="margin:auto;">
+        <img src="http://placehold.it/600x400" style="margin:auto;">
         <div class="carousel-caption">
-            <h4>Slide {{$index}}</h4>
             <p>{{card.name}}</p>
         </div>
     </slide>
 </carousel>
+
+<div data-ng-repeat="card in cards.result" data-ng-show="card.about && card.active">
+    <h3>About {{ card.name }}</h3>
+    <div> {{ card.about }} </div>
+</div>

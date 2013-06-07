@@ -67,6 +67,9 @@ angular.module('portfolioNgApp')
 angular.module('portfolioNgApp')
     .factory 'Portfolio', ($resource, $http, $rootScope) ->
 
+        active = undefined
+
+
         uri = 'http://127.0.0.1\\:5000/portfolio/:listController:id/:docController'
         portfolio = $resource uri, { }, {
             projects:
@@ -79,4 +82,26 @@ angular.module('portfolioNgApp')
                 params: { id: '@id', docController: 'cards' }
         }
 
-        return portfolio
+
+        Portfolio = {}
+
+
+        Portfolio.getProjects = ->
+            portfolio.projects ((data) ->
+                projects = data.result
+            )
+
+
+        Portfolio.getCards = (projectId) ->
+            portfolio.cards {
+                id: projectId
+            }
+
+
+        Portfolio.active = (project = undefined) ->
+            return active if project is undefined and active
+
+            active = project
+
+        return Portfolio
+

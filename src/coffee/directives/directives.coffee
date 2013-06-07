@@ -63,9 +63,15 @@ angular.module('portfolioNgApp')
 
         return niProjectList
 
+angular.module('portfolioNgApp').controller 'ProjectItemController', ['$scope', 'Portfolio', ($scope, Portfolio) ->
+    $scope.select = (item) ->
+        Portfolio.active item
+]
+
 angular.module('portfolioNgApp')
     .directive 'niProjectItem', ->
         niProjectItem =
+            controller: 'ProjectItemController'
             templateUrl: 'views/project-item.html'
             replace: true
             restrict: 'M'

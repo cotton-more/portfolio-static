@@ -1,4 +1,4 @@
 <span>
-    <a data-ng-href="/portfolio/{{item.id}}/cards">{{ item.name }}</a>
+    <a data-ng-href="/portfolio/{{item.id}}/cards" data-ng-click="select(item)">{{ item.name }}</a>
     <span data-ng-repeat="tag in item.tags" class="label">{{ tag }}</span>
 </span>
