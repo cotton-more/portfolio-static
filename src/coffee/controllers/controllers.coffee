@@ -12,16 +12,13 @@ CardListCtrl = ($scope, $routeParams, baseUrl, Portfolio) ->
     projectId = parseInt $routeParams.menuId, 10
     $scope.baseUrl = baseUrl
     $scope.cards = Portfolio.getCards projectId
-    #$scope.project = Portfolio.active()
+
+    $scope.project = Portfolio.selectedProject()
 
     Portfolio.onProjectLoaded $scope, (projects) ->
         angular.forEach projects, (project) ->
             if project.id is projectId
-                $scope.project = project
-        return
-
-    $scope.edit = (project) ->
-        console.log project
+                $scope.project = Portfolio.selectProject project
 
     return
 

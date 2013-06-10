@@ -3,15 +3,15 @@
     <a class="btn btn-link" data-ng-click="edit(project)"><i class="icon icon-edit"></i></a>
 </h1>
 
-<div class="tags">
+<div class="tags" data-ng-show="project.tags">
     <span class="tag label label-info" data-ng-repeat="tag in project.tags">{{ tag }}</span>
 </div>
 
-<div class="well">
+<div class="well" data-ng-show="project.about">
     {{ project.about }}
 </div>
 
-<a class="btn btn-link"><i class="icon icon-arrow-left"></i> Back</a>
+<a class="btn btn-link" href="#!/index/"><i class="icon icon-arrow-left"></i> Back</a>
 
 <carousel interval="myInterval">
     <slide ng-repeat="card in cards.result" active="card.active">

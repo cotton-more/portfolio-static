@@ -62,12 +62,13 @@ angular.module('portfolioNgApp')
 
         PROJECTS_LOADED = 'Projects loaded'
 
+
         projects = []
-        active = undefined
+        selectedProject = {}
 
 
         uri = 'http://127.0.0.1\\:5000/portfolio/:listController:id/:docController'
-        portfolio = $resource uri, { }, {
+        $portfolio = $resource uri, { }, {
             projects:
                 method: 'GET'
                 isArray: false
@@ -83,40 +84,33 @@ angular.module('portfolioNgApp')
 
 
         Portfolio.getProjects = ->
-            projects = portfolio.projects (data) ->
+            $portfolio.projects((data)->
+                projects = data.result
                 $rootScope.$broadcast PROJECTS_LOADED, data.result
-
+            )
 
         Portfolio.onProjectLoaded = ($scope, handle) ->
-            console.log 'Portfolio.onProjectLoaded', arguments
+            console.log 'Portfolio.onProjectLoaded'
 
             $scope.$on PROJECTS_LOADED, (event, message) ->
-                console.log 'Portfolio.onProjectLoaded.$on', arguments
                 handle message
 
-            return
+
+        Portfolio.selectProject = (project) ->
+            angular.forEach projects, (item) ->
+                item.active = (item.id is project.id)
+
+            selectedProject = project
 
 
-
+        Portfolio.selectedProject = ->
+            selectedProject
 
 
         Portfolio.getCards = (projectId) ->
-            portfolio.cards {
+            $portfolio.cards {
                 id: projectId
             }
-
-
-        Portfolio.active = (project = undefined) ->
-            return active if project is undefined and active
-
-            angular.forEach projects, (item) ->
-                if item.id isnt project.id
-                    item.active = false
-
-            if project
-                project.active = true
-
-            active = project
 
 
         return Portfolio

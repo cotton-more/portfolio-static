@@ -34,9 +34,9 @@ angular.module('portfolioNgApp')
 
 
 angular.module('portfolioNgApp')
-    .controller 'ProjectController', ($scope, Portfolio) ->
-        $scope.select = (item) ->
-            Portfolio.active item
+    .controller 'ProjectController', ($scope, $routeParams, Portfolio) ->
+        $scope.selectProject = (item) ->
+            Portfolio.selectProject item
 
 angular.module('portfolioNgApp')
     .directive 'niProjectList', ->
