@@ -1,13 +1,16 @@
 angular.module('portfolioNgApp', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.tpls'])
     .config ($routeProvider, $locationProvider, baseUrl) ->
         $routeProvider
-            .when baseUrl,
+            .when '/index',
                 templateUrl: 'views/portfolio.html'
-            .when '/project/:menuId/view',
+            .when '/project/:id/view',
                 templateUrl: 'views/cardsList.html'
                 controller: 'CardListCtrl'
+            .when '/project/:id/edit',
+                templateUrl: 'views/project-edit.html'
+                controller: 'ProjectEditCtrl'
             .otherwise
-                redirectTo: baseUrl
+                redirectTo: '/index'
 
         $locationProvider.html5Mode(off).hashPrefix('!')
         return
