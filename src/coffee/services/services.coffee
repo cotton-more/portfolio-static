@@ -68,26 +68,27 @@ angular.module('portfolioNgApp')
 
 
         uri = 'http://127.0.0.1\\:5000/portfolio/:listController:id/:docController'
-        $portfolio = $resource uri, { }, {
-            projects:
-                method: 'GET'
-                isArray: false
-                params: { listController: 'projects' }
-            cards:
-                method: 'GET'
-                isArray: false
-                params: { id: '@id', docController: 'cards' }
+        $portfolio = $resource uri, {
+            id: '@id'
         }
 
 
         Portfolio = {}
 
 
+        Portfolio.save = (model) ->
+            model.$save {
+                docController: 'save'
+            }
+
+
         Portfolio.getProjects = ->
-            $portfolio.projects((data)->
-                projects = data.result
-                $rootScope.$broadcast PROJECTS_LOADED, data.result
+            projects = $portfolio.query({
+                listController: 'projects'
+            }, (data)->
+                $rootScope.$broadcast PROJECTS_LOADED, data
             )
+
 
         Portfolio.onProjectLoaded = ($scope, handle) ->
             console.log 'Portfolio.onProjectLoaded'
@@ -108,8 +109,9 @@ angular.module('portfolioNgApp')
 
 
         Portfolio.getCards = (projectId) ->
-            $portfolio.cards {
+            $portfolio.query {
                 id: projectId
+                docController: 'cards'
             }
 
 

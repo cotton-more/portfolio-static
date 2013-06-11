@@ -1,6 +1,6 @@
 <h1>
     {{ project.name }}
-    <a class="btn btn-link" data-ng-click="edit(project)"><i class="icon icon-edit"></i></a>
+    <a class="btn btn-link" href="#!/project/{{project.id}}/edit"><i class="icon icon-edit"></i></a>
 </h1>
 
 <div class="tags" data-ng-show="project.tags">
@@ -14,7 +14,7 @@
 <a class="btn btn-link" href="#!/index/"><i class="icon icon-arrow-left"></i> Back</a>
 
 <carousel interval="myInterval">
-    <slide ng-repeat="card in cards.result" active="card.active">
+    <slide ng-repeat="card in cards" active="card.active">
         <img src="http://placehold.it/600x400" style="margin:auto;">
         <div class="carousel-caption">
             <p>{{card.name}}</p>
