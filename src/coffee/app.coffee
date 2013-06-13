@@ -3,10 +3,10 @@ angular.module('portfolioNgApp', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.tp
         $routeProvider
             .when '/index',
                 templateUrl: 'views/portfolio.html'
-            .when '/project/:id/view',
+            .when '/portfolio/projects/:id',
                 templateUrl: 'views/cardsList.html'
                 controller: 'CardListCtrl'
-            .when '/project/:id/edit',
+            .when '/portfolio/projects/:id/edit',
                 templateUrl: 'views/project-edit.html'
                 controller: 'ProjectEditCtrl'
             .otherwise

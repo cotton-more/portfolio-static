@@ -34,7 +34,18 @@ angular.module('portfolioNgApp')
 
 
 angular.module('portfolioNgApp')
-    .controller 'ProjectController', ($scope, $routeParams, Portfolio) ->
+    .controller 'ProjectController', ($scope, $location, Portfolio) ->
+
+        Portfolio.onProjectLoaded $scope, (data) ->
+            updateItems = (items) ->
+                angular.forEach items, (item) ->
+                    item.active = 0 is $location.$$path.indexOf item.url
+
+            updateItems data
+
+            $scope.$on '$routeChangeSuccess', ->
+                updateItems data
+
         $scope.selectProject = (item) ->
             Portfolio.selectProject item
 

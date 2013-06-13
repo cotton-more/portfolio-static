@@ -64,13 +64,11 @@ angular.module('portfolioNgApp')
 
 
         projects = []
-        selectedProject = {}
+        _currentProject = null
 
 
         uri = 'http://127.0.0.1\\:5000/portfolio/:listController:id/:docController'
-        $portfolio = $resource uri, {
-            id: '@id'
-        }
+        $portfolio = $resource uri
 
 
         Portfolio = {}
@@ -78,6 +76,7 @@ angular.module('portfolioNgApp')
 
         Portfolio.save = (model) ->
             model.$save {
+                listController: 'projects'
                 docController: 'save'
             }
 
@@ -89,6 +88,16 @@ angular.module('portfolioNgApp')
                 $rootScope.$broadcast PROJECTS_LOADED, data
             )
 
+        Portfolio.getProject = (id) ->
+            _currentProject = $portfolio.get({
+                listController: 'projects'
+                docController: id
+            })
+
+
+        Portfolio.currentProject = ->
+            _currentProject
+
 
         Portfolio.onProjectLoaded = ($scope, handle) ->
             console.log 'Portfolio.onProjectLoaded'
@@ -99,20 +108,8 @@ angular.module('portfolioNgApp')
 
         Portfolio.selectProject = (project) ->
             angular.forEach projects, (item) ->
-                item.active = (item.id is project.id)
-
-            selectedProject = project
-
-
-        Portfolio.selectedProject = ->
-            selectedProject
-
-
-        Portfolio.getCards = (projectId) ->
-            $portfolio.query {
-                id: projectId
-                docController: 'cards'
-            }
+                item.active = project is item
+            return
 
 
         return Portfolio

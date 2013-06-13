@@ -11,17 +11,14 @@ angular.module('portfolioNgApp').controller 'PortfolioCtrl', PortfolioCtrl
 CardListCtrl = ($scope, $routeParams, baseUrl, Portfolio) ->
     projectId = parseInt $routeParams.id, 10
 
-
     $scope.baseUrl = baseUrl
-    $scope.cards = Portfolio.getCards projectId
-    $scope.project = Portfolio.selectedProject()
 
+    $scope.project = Portfolio.getProject projectId
 
-    Portfolio.onProjectLoaded $scope, (projects) ->
-        angular.forEach projects, (project) ->
-            if project.id is projectId
-                $scope.project = Portfolio.selectProject project
-
+    #Portfolio.onProjectLoaded $scope, (projects) ->
+        #angular.forEach projects, (project) ->
+            #if project.id is projectId
+                #$scope.project = Portfolio.selectProject project
 
     return
 
@@ -32,7 +29,7 @@ angular.module('portfolioNgApp').controller 'CardListCtrl', CardListCtrl
 
 # Edit project
 ProjectEditCtrl = ($scope, Portfolio) ->
-    $scope.project = Portfolio.selectedProject()
+    $scope.project = Portfolio.currentProject()
 
     $scope.save = ->
         Portfolio.save $scope.project
