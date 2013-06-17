@@ -26,10 +26,7 @@ module.exports = (grunt) ->
         src:
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
             less: 'src/less/stylesheet.less'
-            tpls: {
-                ctpl: [ 'src/template/**/*.html' ]
-                atpl: [ 'src/views/**/*.html' ]
-            }
+            tpls: [ 'src/views/**/*.html' ]
 
         vendor:
             js: [
@@ -37,7 +34,7 @@ module.exports = (grunt) ->
                 'vendor/angular/angular.min.js'
                 'vendor/angular-cookies/angular-cookies.min.js'
                 'vendor/angular-resource/angular-resource.min.js'
-                'vendor/angular-ui/bootstrap/ui-bootstrap-0.3.0.js'
+                #'vendor/angular-ui/bootstrap/ui-bootstrap-0.3.0.js'
             ]
 
         clean:
@@ -95,9 +92,11 @@ module.exports = (grunt) ->
 
         html2js:
             tpls:
-                src: [ '<%= src.tpls.ctpl %>', '<%= src.tpls.atpl %>' ]
-                dest: '<%= buildDir %>/scripts/ui-bootstrap.tpls.js'
-                module: 'ui.bootstrap.tpls'
+                src: [
+                    '<%= src.tpls %>'
+                ]
+                dest: '<%= buildDir %>/scripts/portfolioApp.tpls.js'
+                module: 'portfolioApp.tpls'
 
         jshint:
             files: [
@@ -129,7 +128,7 @@ module.exports = (grunt) ->
                     '<%= buildDir %>/scripts/<%= pkg.name %>.min.js': [ '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js' ]
             tpls:
                 files:
-                    '<%= buildDir %>/scripts/ui-bootstrap.tpls.min.js': '<%= buildDir %>/scripts/ui-bootstrap.tpls.js'
+                    '<%= buildDir %>/scripts/portfolioApp.tpls.min.js': '<%= buildDir %>/scripts/portfolioApp.tpls.js'
 
         delta:
             options:

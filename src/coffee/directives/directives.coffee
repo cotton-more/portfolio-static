@@ -1,4 +1,4 @@
-angular.module('portfolioNgApp')
+angular.module('portfolioApp')
     .directive 'niPersonaAuth', (Persona, $compile) ->
 
         authTmpl = '<a><img class="persona" ng-click="request()" src="/static/images/plain_sign_in_black.png"></a>'
@@ -33,7 +33,7 @@ angular.module('portfolioNgApp')
         niPersonaAuth
 
 
-angular.module('portfolioNgApp')
+angular.module('portfolioApp')
     .controller 'ProjectController', ($scope, $location, Portfolio) ->
 
         Portfolio.onProjectLoaded $scope, (data) ->
@@ -49,7 +49,7 @@ angular.module('portfolioNgApp')
         $scope.selectProject = (item) ->
             Portfolio.selectProject item
 
-angular.module('portfolioNgApp')
+angular.module('portfolioApp')
     .directive 'niProjectList', ->
         niProjectList =
             controller: 'ProjectController'

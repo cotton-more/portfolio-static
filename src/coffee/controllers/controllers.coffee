@@ -4,7 +4,7 @@ PortfolioCtrl = ($scope, Portfolio) ->
     return
 
 PortfolioCtrl.$inject = ['$scope', 'Portfolio']
-angular.module('portfolioNgApp').controller 'PortfolioCtrl', PortfolioCtrl
+angular.module('portfolioApp').controller 'PortfolioCtrl', PortfolioCtrl
 
 
 # List project's cards
@@ -24,7 +24,7 @@ CardListCtrl = ($scope, $routeParams, baseUrl, Portfolio) ->
 
 
 CardListCtrl.$inject = ['$scope', '$routeParams', 'baseUrl', 'Portfolio']
-angular.module('portfolioNgApp').controller 'CardListCtrl', CardListCtrl
+angular.module('portfolioApp').controller 'CardListCtrl', CardListCtrl
 
 
 # Edit project
@@ -38,4 +38,4 @@ ProjectEditCtrl = ($scope, Portfolio) ->
 
 
 ProjectEditCtrl.$inject = ['$scope', 'Portfolio']
-angular.module('portfolioNgApp').controller 'ProjectEditCtrl', ProjectEditCtrl
+angular.module('portfolioApp').controller 'ProjectEditCtrl', ProjectEditCtrl

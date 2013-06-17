@@ -1,4 +1,4 @@
-angular.module('portfolioNgApp')
+angular.module('portfolioApp')
     .factory 'Persona', ($http, $rootScope) ->
         STATUS = 'Email of logged in user'
 
@@ -57,7 +57,7 @@ angular.module('portfolioNgApp')
         Persona
 
 
-angular.module('portfolioNgApp')
+angular.module('portfolioApp')
     .factory 'Portfolio', ($resource, $rootScope, Persona) ->
 
         PROJECTS_LOADED = 'Projects loaded'

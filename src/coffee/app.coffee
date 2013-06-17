@@ -1,5 +1,5 @@
-angular.module('portfolioNgApp', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.tpls'])
-    .config ($routeProvider, $locationProvider, baseUrl) ->
+angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls'])
+    .config ($routeProvider, $locationProvider) ->
         $routeProvider
             .when '/index',
                 templateUrl: 'views/portfolio.html'
