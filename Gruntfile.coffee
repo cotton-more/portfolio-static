@@ -31,10 +31,10 @@ module.exports = (grunt) ->
         vendor:
             js: [
                 'vendor/jquery/jquery.js'
+                'vendor/foundation/foundation.min.js'
                 'vendor/angular/angular.min.js'
                 'vendor/angular-cookies/angular-cookies.min.js'
                 'vendor/angular-resource/angular-resource.min.js'
-                #'vendor/angular-ui/bootstrap/ui-bootstrap-0.3.0.js'
             ]
 
         clean:
@@ -95,8 +95,8 @@ module.exports = (grunt) ->
                 src: [
                     '<%= src.tpls %>'
                 ]
-                dest: '<%= buildDir %>/scripts/portfolioApp.tpls.js'
-                module: 'portfolioApp.tpls'
+                dest: '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.js'
+                module: '<%= pkg.name %>.tpls'
 
         jshint:
             files: [
@@ -128,7 +128,7 @@ module.exports = (grunt) ->
                     '<%= buildDir %>/scripts/<%= pkg.name %>.min.js': [ '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js' ]
             tpls:
                 files:
-                    '<%= buildDir %>/scripts/portfolioApp.tpls.min.js': '<%= buildDir %>/scripts/portfolioApp.tpls.js'
+                    '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.min.js': '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.js'
 
         delta:
             options:
