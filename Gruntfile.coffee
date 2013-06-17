@@ -83,6 +83,12 @@ module.exports = (grunt) ->
             libs:
                 src: [ '<%= vendor.js %>' ]
                 dest: '<%= buildDir %>/scripts/libs.js'
+            styles:
+                src: [
+                    'src/assets/styles/**/*.css'
+                    '<%= buildDir %>/styles/<%= pkg.name %>.css'
+                ]
+                dest: '<%= buildDir %>/styles/stylesheet.css'
 
         # Annotate angular sources
         ngmin:
@@ -165,13 +171,13 @@ module.exports = (grunt) ->
     grunt.registerTask 'default', [ 'build' ]
     grunt.registerTask 'build', [
         'clean'
+        'recess'
         'coffee:build'
         'concat'
         'ngmin:build'
         'jshint'
         'html2js'
         'uglify'
-        'recess'
         'copy'
     ]
 
