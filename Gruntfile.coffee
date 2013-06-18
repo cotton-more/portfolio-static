@@ -83,12 +83,6 @@ module.exports = (grunt) ->
             libs:
                 src: [ '<%= vendor.js %>' ]
                 dest: '<%= buildDir %>/scripts/libs.js'
-            styles:
-                src: [
-                    'src/assets/styles/**/*.css'
-                    '<%= buildDir %>/styles/<%= pkg.name %>.css'
-                ]
-                dest: '<%= buildDir %>/styles/stylesheet.css'
 
         # Annotate angular sources
         ngmin:
@@ -143,7 +137,7 @@ module.exports = (grunt) ->
                 files: [ 'src/assets/**' ]
                 tasks: [ 'clean:assets', 'copy:assets' ]
             tpls:
-                files: [ '<%= src.tpls.ctpl %>', '<%= src.tpls.atpl %>' ]
+                files: [ '<%= src.tpls %>' ]
                 tasks: [
                     'html2js'
                     'uglify:tpls'
