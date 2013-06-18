@@ -13,16 +13,13 @@
 
 <a class="btn btn-link" href="#!/index/"><i class="icon icon-arrow-left"></i> Back</a>
 
-<carousel interval="myInterval">
-    <slide ng-repeat="card in project.cards" active="card.active">
-        <img src="http://placehold.it/600x400" style="margin:auto;">
-        <div class="carousel-caption">
-            <p>{{card.name}}</p>
-        </div>
-    </slide>
-</carousel>
-
-<div data-ng-repeat="card in cards.result" data-ng-show="card.about && card.active">
-    <h3>About {{ card.name }}</h3>
-    <div> {{ card.about }} </div>
+<div id="slider" data-slider>
+    <ul data-orbit>
+        <li data-slide data-ng-repeat="card in project.cards">
+            <img src="http://placehold.it/600x400">
+            <div class="orbit-caption">
+                <p>{{card.name}}</p>
+            </div>
+        </li>
+    </ul>
 </div>

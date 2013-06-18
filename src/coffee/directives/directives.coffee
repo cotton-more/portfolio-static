@@ -58,3 +58,21 @@ angular.module('portfolioApp')
             restrict: 'M'
 
         return niProjectList
+
+
+angular.module('portfolioApp')
+    .directive 'slider', ->
+        orbit =
+            controller: ['$scope', '$element', '$attrs', ($scope, $element, $attrs) ->
+                @slider = $element
+                return
+            ]
+
+angular.module('portfolioApp')
+    .directive 'slide', ($timeout) ->
+        slide =
+            restrict: 'A'
+            require: '^slider'
+            link: ($scope, $element, $attrs, $controller) ->
+                if ($scope.$last)
+                    $($controller.slider).foundation('orbit')
