@@ -1,4 +1,4 @@
-angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls'])
+angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls', 'security'])
     .config ($routeProvider, $locationProvider) ->
         $routeProvider
             .when '/index',
