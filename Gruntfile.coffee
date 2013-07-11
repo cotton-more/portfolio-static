@@ -26,7 +26,10 @@ module.exports = (grunt) ->
         src:
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
             less: 'src/less/stylesheet.less'
-            tpls: [ 'src/views/**/*.html', 'src/coffee/**/*.html' ]
+            tpls: [
+                'src/views/**/*.html'
+                'src/coffee/**/*.html'
+            ]
 
         vendor:
             js: [
