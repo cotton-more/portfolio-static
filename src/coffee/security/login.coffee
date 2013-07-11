@@ -13,10 +13,11 @@ angular.module('security.login.toolbar')
             scope: true
             link: ($scope, $el, $attrs, $ctrl) ->
                 $scope.login = security.showLogin
+                $scope.logout = security.logout
                 $scope.isAuthenticated = security.isAuthenticated
-                $scope.$watch (->
+                $scope.$watch ->
                     security.currentUser
-                ), (currentUser) ->
+                , (currentUser) ->
                     $scope.currentUser = currentUser
 
 
@@ -32,9 +33,8 @@ angular.module('security.login.form')
         '$scope'
         'security'
         ($scope, security) ->
-            $scope.user = {}
-
-
+            $scope.user =
+                email: 'test'
             $scope.login = ->
                 security.login $scope.user
     ]

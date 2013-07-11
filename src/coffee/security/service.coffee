@@ -37,12 +37,18 @@ angular.module('security.service', [])
 
 
             service =
-                currentUser: null
+                currentUser:
+                    email: null
+
+
+            service.checkUser = ->
+                request = $http.get '/users/email'
+                request.then (response) ->
+                    service.currentUser = response.data
 
 
             service.isAuthenticated = ->
-                console.log 'test'
-                return !!service.currentUser
+                return !!service.currentUser.email
 
 
             service.showLogin = ->
@@ -50,10 +56,12 @@ angular.module('security.service', [])
 
 
             service.login = (user) ->
+                console.log user
                 request = $http.post '/users/login', user
 
                 request.then (response) ->
-                    service.currentUser = user
+                    console.log response
+                    service.currentUser = response.data
                     if service.isAuthenticated()
                         closeLoginDialog()
 
@@ -61,7 +69,7 @@ angular.module('security.service', [])
             service.logout = ->
                 request = $http.post '/users/logout'
                 request.then ->
-                    service.currentUser = null
+                    service.currentUser.email = null
 
 
             return service
