@@ -100,28 +100,6 @@ module.exports = (grunt) ->
                 ]
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.js'
                 module: '<%= pkg.name %>.tpls'
-
-        jshint:
-            files: [
-                '.tmp/scripts/**/*.js'
-                '<%= buildDir %>/scripts/<%= pkg.name %>.js'
-                '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js'
-            ]
-            options:
-                curly: true
-                eqeqeq: true
-                immed: true
-                latedef: true
-                newcap: true
-                noarg: true
-                sub: true
-                boss: true
-                eqnull: true
-                globals:
-                    $: true
-                    jQuery: true
-                    angular: true
-
         # Minify the sources!
         uglify:
             build:
@@ -172,7 +150,6 @@ module.exports = (grunt) ->
         'coffee:build'
         'concat'
         'ngmin:build'
-        'jshint'
         'html2js'
         'uglify'
         'copy'
@@ -183,6 +160,5 @@ module.exports = (grunt) ->
         'coffee:build'
         'concat:build'
         'ngmin:build'
-        'jshint'
         'uglify:build'
     ]
