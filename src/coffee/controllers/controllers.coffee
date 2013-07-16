@@ -1,6 +1,6 @@
 # Menu controller
 PortfolioCtrl = ($scope, Portfolio) ->
-    $scope.list = Portfolio.getProjects()
+    #$scope.list = Portfolio.getProjects()
     return
 
 PortfolioCtrl.$inject = ['$scope', 'Portfolio']
@@ -32,7 +32,7 @@ ProjectEditCtrl = ($scope, Portfolio) ->
     $scope.project = Portfolio.currentProject()
 
     $scope.save = ->
-        Portfolio.save $scope.project
+        Portfolio.updateProject $scope.project
 
     return
 

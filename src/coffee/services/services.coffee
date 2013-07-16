@@ -4,7 +4,6 @@ angular.module('portfolioApp')
         PROJECTS_LOADED = 'Projects loaded'
 
 
-        projects = []
         _currentProject = null
 
 
@@ -12,7 +11,9 @@ angular.module('portfolioApp')
         $portfolio = $resource uri
 
 
-        Portfolio = {}
+        Portfolio = {
+            projects: []
+        }
 
 
         Portfolio.save = (model) ->
@@ -22,8 +23,8 @@ angular.module('portfolioApp')
             }
 
 
-        Portfolio.getProjects = ->
-            projects = $portfolio.query({
+        Portfolio.loadProjects = ->
+            Portfolio.projects = $portfolio.query({
                 listController: 'projects'
             }, (data)->
                 $rootScope.$broadcast PROJECTS_LOADED, data
@@ -35,6 +36,9 @@ angular.module('portfolioApp')
                 docController: id
             })
 
+        Portfolio.getProjects = ->
+            Portfolio.loadProjects() if not Portfolio.projects.length
+            Portfolio.projects
 
         Portfolio.currentProject = ->
             _currentProject
@@ -48,7 +52,7 @@ angular.module('portfolioApp')
 
 
         Portfolio.selectProject = (project) ->
-            angular.forEach projects, (item) ->
+            angular.forEach Portfolio.projects, (item) ->
                 item.active = project is item
             return
 
@@ -62,6 +66,15 @@ angular.module('portfolioApp')
             , ->
                 projects.push project
 
+
+        Portfolio.updateProject = (project) ->
+            project.$save
+                listController: 'projects'
+                docController: 'update'
+            , (data) ->
+                angular.forEach Portfolio.projects, (item) ->
+                    if item.url is project.url
+                        angular.extend item, project
 
 
         return Portfolio
