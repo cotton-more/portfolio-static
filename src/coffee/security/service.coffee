@@ -60,7 +60,6 @@ angular.module('security.service', [])
                 request = $http.post '/users/login', user
 
                 request.then (response) ->
-                    console.log response
                     service.currentUser = response.data
                     if service.isAuthenticated()
                         closeLoginDialog()

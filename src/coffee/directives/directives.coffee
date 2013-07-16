@@ -1,28 +1,19 @@
 angular.module('portfolioApp')
-    .controller 'ProjectController', ($scope, $location, Portfolio) ->
-
-        Portfolio.onProjectLoaded $scope, (data) ->
-            updateItems = (items) ->
-                angular.forEach items, (item) ->
-                    item.active = 0 is $location.$$path.indexOf item.url
-
-            updateItems data
-
-            $scope.$on '$routeChangeSuccess', ->
-                updateItems data
-
+    .controller 'ProjectController', ($scope, $location, Portfolio, security) ->
+        $scope.isAuthenticated = security.isAuthenticated
+        $scope.projects = Portfolio.getProjects()
         $scope.selectProject = (item) ->
             Portfolio.selectProject item
 
 angular.module('portfolioApp')
-    .directive 'niProjectList', ->
-        niProjectList =
+    .directive 'projectList', ->
+        ProjectList =
             controller: 'ProjectController'
             templateUrl: 'views/project-list.html'
             replace: true
             restrict: 'M'
 
-        return niProjectList
+        return ProjectList
 
 
 angular.module('portfolioApp')
