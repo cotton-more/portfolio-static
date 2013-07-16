@@ -53,4 +53,15 @@ angular.module('portfolioApp')
             return
 
 
+        # Save new project and insert it into `projects`
+        Portfolio.saveProject = (data) ->
+            project = new $portfolio data
+            project.$save
+                listController: 'projects'
+                docController: 'save'
+            , ->
+                projects.push project
+
+
+
         return Portfolio

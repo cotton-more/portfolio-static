@@ -39,3 +39,16 @@ ProjectEditCtrl = ($scope, Portfolio) ->
 
 ProjectEditCtrl.$inject = ['$scope', 'Portfolio']
 angular.module('portfolioApp').controller 'ProjectEditCtrl', ProjectEditCtrl
+
+
+# New project
+ProjectNewCtrl = ($scope, Portfolio) ->
+    $scope.project = {}
+
+    $scope.save = ->
+        Portfolio.saveProject $scope.project
+
+    return
+
+ProjectNewCtrl.$inject = ['$scope', 'Portfolio']
+angular.module('portfolioApp').controller 'ProjectNewCtrl', ProjectNewCtrl

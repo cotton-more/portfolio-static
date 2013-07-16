@@ -3,14 +3,15 @@ angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls', 'security'])
         $routeProvider
             .when '/index',
                 templateUrl: 'views/portfolio.html'
+            .when '/portfolio/projects/new',
+                templateUrl: 'views/project-new.html'
+                controller: 'ProjectNewCtrl'
             .when '/portfolio/projects/:id',
                 templateUrl: 'views/cardsList.html'
                 controller: 'CardListCtrl'
             .when '/portfolio/projects/:id/edit',
                 templateUrl: 'views/project-edit.html'
                 controller: 'ProjectEditCtrl'
-            .when '/portfolio/projects/new',
-                controller: 'ProjectNewCtrl'
             .otherwise
                 redirectTo: '/index'
 
