@@ -9,6 +9,8 @@ angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls', 'security'])
             .when '/portfolio/projects/:id/edit',
                 templateUrl: 'views/project-edit.html'
                 controller: 'ProjectEditCtrl'
+            .when '/portfolio/projects/new',
+                controller: 'ProjectNewCtrl'
             .otherwise
                 redirectTo: '/index'
 
