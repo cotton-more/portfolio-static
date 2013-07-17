@@ -7,7 +7,7 @@ angular.module 'security.login.toolbar', []
 angular.module('security.login.toolbar')
     .directive 'loginToolbar', ['security', (security) ->
         directive =
-            templateUrl: 'tpl/security/login.toolbar.html'
+            templateUrl: 'security/login.toolbar.html'
             restrict: 'E'
             replace: true
             scope: true

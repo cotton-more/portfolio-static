@@ -9,16 +9,16 @@ angular.module('portfolioApp', [
     .config ($routeProvider, $locationProvider) ->
         $routeProvider
             .when '/index',
-                templateUrl: 'tpl/portfolio/portfolio.html'
+                templateUrl: 'portfolio/portfolio.html'
             .when '/portfolio/projects/new',
-                templateUrl: 'tpl/portfolio/project-new.html'
+                templateUrl: 'portfolio/project-new.html'
                 controller: 'ProjectNewCtrl'
                 authOnly: true
             .when '/portfolio/projects/:id',
-                templateUrl: 'tpl/portfolio/cardsList.html'
+                templateUrl: 'portfolio/cardsList.html'
                 controller: 'CardListCtrl'
             .when '/portfolio/projects/:id/edit',
-                templateUrl: 'tpl/portfolio/project-edit.html'
+                templateUrl: 'portfolio/project-edit.html'
                 controller: 'ProjectEditCtrl'
                 authOnly: true
             .otherwise

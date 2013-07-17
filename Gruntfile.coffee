@@ -98,8 +98,6 @@ module.exports = (grunt) ->
                 options:
                     base: 'src/coffee'
                     module: '<%= pkg.name %>.tpls'
-                    rename: (moduleName) ->
-                        'tpl/' + moduleName
                 src: [
                     '<%= src.tpls %>'
                 ]

@@ -12,7 +12,7 @@ angular.module('portfolioApp.directives', [])
                     $scope.selectProject = (item) ->
                         Portfolio.selectProject item
             ]
-            templateUrl: 'tpl/portfolio/project-list.html'
+            templateUrl: 'portfolio/project-list.html'
             replace: true
             restrict: 'M'
 
