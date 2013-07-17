@@ -6,12 +6,14 @@ angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls', 'security'])
             .when '/portfolio/projects/new',
                 templateUrl: 'views/project-new.html'
                 controller: 'ProjectNewCtrl'
+                authOnly: true
             .when '/portfolio/projects/:id',
                 templateUrl: 'views/cardsList.html'
                 controller: 'CardListCtrl'
             .when '/portfolio/projects/:id/edit',
                 templateUrl: 'views/project-edit.html'
                 controller: 'ProjectEditCtrl'
+                authOnly: true
             .otherwise
                 redirectTo: '/index'
 

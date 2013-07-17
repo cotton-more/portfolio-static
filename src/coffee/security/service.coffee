@@ -1,12 +1,12 @@
 angular.module('security.service', [])
     .factory 'security', [
         '$http'
-        '$q'
         '$templateCache'
         '$rootScope'
         '$controller'
         '$compile'
-        ($http, $q, $templateCache, $rootScope, $ctrl, $compile) ->
+        '$location'
+        ($http, $templateCache, $rootScope, $ctrl, $compile, $location) ->
 
             loginDialog = null
 
@@ -37,8 +37,7 @@ angular.module('security.service', [])
 
 
             service =
-                currentUser:
-                    email: null
+                currentUser: null
 
 
             service.checkUser = ->
@@ -48,7 +47,7 @@ angular.module('security.service', [])
 
 
             service.isAuthenticated = ->
-                return !!service.currentUser.email
+                return service.currentUser && !!service.currentUser.email
 
 
             service.showLogin = ->
@@ -68,7 +67,8 @@ angular.module('security.service', [])
             service.logout = ->
                 request = $http.post '/users/logout'
                 request.then ->
-                    service.currentUser.email = null
+                    service.currentUser = null
+                    $location.url '/'
 
 
             return service
