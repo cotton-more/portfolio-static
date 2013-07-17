@@ -27,7 +27,7 @@ module.exports = (grunt) ->
             coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
             less: 'src/less/stylesheet.less'
             tpls: [
-                'src/views/**/*.html'
+                #'src/views/**/*.html'
                 'src/coffee/**/*.html'
             ]
 
@@ -95,11 +95,15 @@ module.exports = (grunt) ->
 
         html2js:
             tpls:
+                options:
+                    base: 'src/coffee'
+                    module: '<%= pkg.name %>.tpls'
+                    rename: (moduleName) ->
+                        'tpl/' + moduleName
                 src: [
                     '<%= src.tpls %>'
                 ]
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.js'
-                module: '<%= pkg.name %>.tpls'
         # Minify the sources!
         uglify:
             build:

@@ -14,7 +14,7 @@ angular.module('security.service', [])
                 if loginDialog
                     throw new Error 'Login dialog is already open'
 
-                templatePromise = $http.get('coffee/security/login.form.html',
+                templatePromise = $http.get('tpl/security/login.form.html',
                     cache: $templateCache
                 ).then((response) ->
                     $form = $ response.data

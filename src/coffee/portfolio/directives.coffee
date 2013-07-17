@@ -1,23 +1,25 @@
-angular.module('portfolioApp')
-    .controller 'ProjectController', ($scope, $location, Portfolio, security) ->
-        $scope.isAuthenticated = security.isAuthenticated
-        $scope.projects = Portfolio.getProjects()
-        $scope.selectProject = (item) ->
-            Portfolio.selectProject item
-
-angular.module('portfolioApp')
-    .directive 'projectList', ->
+angular.module('portfolioApp.directives', [])
+    .directive('projectList', ->
         ProjectList =
-            controller: 'ProjectController'
-            templateUrl: 'views/project-list.html'
+            controller: [
+                '$scope'
+                '$location'
+                'Portfolio'
+                'security'
+                ($scope, $location, Portfolio, security) ->
+                    $scope.isAuthenticated = security.isAuthenticated
+                    $scope.projects = Portfolio.getProjects()
+                    $scope.selectProject = (item) ->
+                        Portfolio.selectProject item
+            ]
+            templateUrl: 'tpl/portfolio/project-list.html'
             replace: true
             restrict: 'M'
 
         return ProjectList
+    )
 
-
-angular.module('portfolioApp')
-    .directive 'slider', ->
+    .directive('slider', ->
         orbit =
             scope:
                 cards: '=slider'
@@ -35,9 +37,9 @@ angular.module('portfolioApp')
 
                 return
             ]
+    )
 
-angular.module('portfolioApp')
-    .directive 'slide', ->
+    .directive('slide', ->
         slide =
             restrict: 'A'
             require: '^slider'
@@ -47,3 +49,4 @@ angular.module('portfolioApp')
 
                 if $scope.$last
                     $($controller.slider).foundation 'orbit'
+    )

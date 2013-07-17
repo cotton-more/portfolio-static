@@ -1,5 +1,5 @@
-angular.module('portfolioApp')
-    .factory 'Portfolio', ($resource, $rootScope) ->
+angular.module('portfolioApp.services', [])
+    .factory('Portfolio', ($resource, $rootScope) ->
 
         PROJECTS_LOADED = 'Projects loaded'
 
@@ -77,3 +77,4 @@ angular.module('portfolioApp')
 
 
         return Portfolio
+    )

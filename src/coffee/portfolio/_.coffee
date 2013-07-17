@@ -1,17 +1,24 @@
-angular.module('portfolioApp', ['ngResource', 'portfolioApp.tpls', 'security'])
+angular.module('portfolioApp', [
+    'ngResource'
+    'portfolioApp.tpls'
+    'portfolioApp.controllers'
+    'portfolioApp.services'
+    'portfolioApp.directives'
+    'security'
+])
     .config ($routeProvider, $locationProvider) ->
         $routeProvider
             .when '/index',
-                templateUrl: 'views/portfolio.html'
+                templateUrl: 'tpl/portfolio/portfolio.html'
             .when '/portfolio/projects/new',
-                templateUrl: 'views/project-new.html'
+                templateUrl: 'tpl/portfolio/project-new.html'
                 controller: 'ProjectNewCtrl'
                 authOnly: true
             .when '/portfolio/projects/:id',
-                templateUrl: 'views/cardsList.html'
+                templateUrl: 'tpl/portfolio/cardsList.html'
                 controller: 'CardListCtrl'
             .when '/portfolio/projects/:id/edit',
-                templateUrl: 'views/project-edit.html'
+                templateUrl: 'tpl/portfolio/project-edit.html'
                 controller: 'ProjectEditCtrl'
                 authOnly: true
             .otherwise
