@@ -1,7 +1,5 @@
 # Menu controller
 PortfolioCtrl = ($scope, Portfolio) ->
-    #$scope.list = Portfolio.getProjects()
-    return
 
 PortfolioCtrl.$inject = ['$scope', 'Portfolio']
 angular.module('portfolioApp').controller 'PortfolioCtrl', PortfolioCtrl
@@ -14,11 +12,6 @@ CardListCtrl = ($scope, $routeParams, baseUrl, Portfolio) ->
     $scope.baseUrl = baseUrl
 
     $scope.project = Portfolio.getProject projectId
-
-    #Portfolio.onProjectLoaded $scope, (projects) ->
-        #angular.forEach projects, (project) ->
-            #if project.id is projectId
-                #$scope.project = Portfolio.selectProject project
 
     return
 

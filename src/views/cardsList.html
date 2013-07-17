@@ -13,13 +13,15 @@
 
 <a class="btn btn-link" href="#!/index/"><i class="icon icon-arrow-left"></i> Back</a>
 
-<div id="slider" data-slider>
+<div id="slider" data-slider="project.cards">
     <ul data-orbit data-options="bullets: false; timer_speed: 0;">
-        <li data-slide data-ng-repeat="card in project.cards">
+        <li data-slide data-ng-repeat="card in cards">
             <img src="http://placehold.it/600x400">
             <div class="orbit-caption">
                 <p>{{card.name}}</p>
             </div>
         </li>
     </ul>
+
+    <p>{{ card.name }}</p>
 </div>

@@ -11,9 +11,8 @@ angular.module('portfolioApp')
         $portfolio = $resource uri
 
 
-        Portfolio = {
+        Portfolio =
             projects: []
-        }
 
 
         Portfolio.save = (model) ->
