@@ -3,7 +3,7 @@
         <a class="foundicon-plus" data-ng-href="#!/portfolio/projects/new"> new</a>
     </li>
     <li class="divider" data-auth></li>
-    <li data-ng-repeat="item in projects" data-ng-class="{active: item.active}">
-        <a data-ng-href="#!{{ item.url }}" data-ng-click="selectProject(item)">{{ item.name }}</a>
+    <li data-ng-repeat="item in projects.data" data-ng-class="{active: item.active}">
+        <a data-ng-href="#!/portfolio/projects/{{ item.id }}" data-ng-click="selectProject(item)">{{ item.name }}</a>
     </li>
 </ul>

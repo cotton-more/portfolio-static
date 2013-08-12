@@ -7,12 +7,18 @@ angular.module('portfolioApp.services', [])
         _currentProject = null
 
 
-        uri = 'http://127.0.0.1\\:5000/portfolio/:listController:id/:docController'
-        $portfolio = $resource uri
+        # uri = 'http://127.0.0.1\\:5000/api/:listController/:id/:docController'
+        # $portfolio = $resource uri
+        Projects = $resource 'http://127.0.0.1\\:5000/api/projects/:id/:verb', {}, {
+            all:
+                method: 'GET'
+                isArray: false
+        }
+
 
 
         Portfolio =
-            projects: []
+            projects: null
 
 
         Portfolio.save = (model) ->
@@ -23,20 +29,16 @@ angular.module('portfolioApp.services', [])
 
 
         Portfolio.loadProjects = ->
-            Portfolio.projects = $portfolio.query({
-                listController: 'projects'
-            }, (data)->
-                $rootScope.$broadcast PROJECTS_LOADED, data
-            )
+            Portfolio.projects = Projects.all()
 
         Portfolio.getProject = (id) ->
             _currentProject = $portfolio.get({
                 listController: 'projects'
-                docController: id
+                id: id
             })
 
         Portfolio.getProjects = ->
-            Portfolio.loadProjects() if not Portfolio.projects.length
+            Portfolio.loadProjects() if not Portfolio.projects
             Portfolio.projects
 
         Portfolio.currentProject = ->

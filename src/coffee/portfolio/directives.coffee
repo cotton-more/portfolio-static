@@ -8,7 +8,9 @@ angular.module('portfolioApp.directives', [])
                 'security'
                 ($scope, $location, Portfolio, security) ->
                     $scope.isAuthenticated = security.isAuthenticated
-                    $scope.projects = Portfolio.getProjects()
+
+                    $scope.projects = Portfolio.loadProjects()
+
                     $scope.selectProject = (item) ->
                         Portfolio.selectProject item
             ]
