@@ -11,8 +11,8 @@ angular.module('portfolioApp.directives', [])
 
                     $scope.projects = Portfolio.loadProjects()
 
-                    $scope.selectProject = (item) ->
-                        Portfolio.selectProject item
+                    $scope.selectProject = (project) ->
+                        Portfolio.currentProject project
             ]
             templateUrl: 'portfolio/project-list.html'
             replace: true

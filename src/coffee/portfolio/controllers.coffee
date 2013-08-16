@@ -10,13 +10,8 @@ angular.module('portfolioApp.controllers', [])
         'baseUrl'
         'Portfolio'
         ($scope, $routeParams, baseUrl, Portfolio) ->
-            projectId = parseInt $routeParams.id, 10
-
-            $scope.baseUrl = baseUrl
-
-            $scope.project = Portfolio.getProject projectId
-
-            return
+            $scope.project = Portfolio.currentProject()
+            $scope.cards = Portfolio.getCurrentProjectCards()
     ])
 
 

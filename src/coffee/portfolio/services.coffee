@@ -15,6 +15,11 @@ angular.module('portfolioApp.services', [])
                 isArray: false
         }
 
+        Cards = $resource 'http://127.0.0.1\\:5000/api/projects/:id/cards', {}, {
+            query:
+                method: 'GET'
+                isArray: false
+        }
 
 
         Portfolio =
@@ -37,12 +42,22 @@ angular.module('portfolioApp.services', [])
                 id: id
             })
 
+
         Portfolio.getProjects = ->
             Portfolio.loadProjects() if not Portfolio.projects
             Portfolio.projects
 
-        Portfolio.currentProject = ->
+
+        Portfolio.currentProject = (project) ->
+            if project
+                _currentProject = project
+
             _currentProject
+
+
+        Portfolio.getCurrentProjectCards = ->
+            Cards.query
+                id: _currentProject.id
 
 
         Portfolio.onProjectLoaded = ($scope, handle) ->
@@ -50,12 +65,6 @@ angular.module('portfolioApp.services', [])
 
             $scope.$on PROJECTS_LOADED, (event, message) ->
                 handle message
-
-
-        Portfolio.selectProject = (project) ->
-            angular.forEach Portfolio.projects, (item) ->
-                item.active = project is item
-            return
 
 
         # Save new project and insert it into `projects`
