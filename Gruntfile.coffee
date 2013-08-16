@@ -20,7 +20,7 @@ module.exports = (grunt) ->
             This is a collection of file definitions we use in the configuration of
             build tasks. `js` is all project javascript, less tests. `atpl` contains
             our reusable components' template HTML files, while `ctpl` contains the
-            same, but for our app's code. `html` is just our main HTML file and 
+            same, but for our app's code. `html` is just our main HTML file and
             `less` is our main stylesheet.
         ###
         src:
@@ -36,7 +36,7 @@ module.exports = (grunt) ->
                 'vendor/jquery/jquery.js'
                 'vendor/foundation/foundation.min.js'
                 'vendor/angular/angular.min.js'
-                'vendor/angular-cookies/angular-cookies.min.js'
+                'vendor/angular-route/angular-route.min.js'
                 'vendor/angular-resource/angular-resource.min.js'
             ]
 
@@ -128,6 +128,7 @@ module.exports = (grunt) ->
             coffee:
                 files: [ '<%= src.coffee %>' ]
                 tasks: [
+                    # 'clean:tmp'
                     'coffee:build'
                     'concat:build'
                     'ngmin:build'
