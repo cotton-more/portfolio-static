@@ -6,11 +6,11 @@ angular.module('portfolioApp.controllers', [])
     # List project's cards
     .controller('CardListCtrl', [
         '$scope'
-        '$routeParams'
-        'baseUrl'
         'Portfolio'
-        ($scope, $routeParams, baseUrl, Portfolio) ->
-            $scope.project = Portfolio.currentProject()
+        'project'
+        ($scope, Portfolio, project) ->
+            $scope.project = Portfolio.currentProject project
+
             $scope.cards = Portfolio.getCurrentProjectCards()
     ])
 

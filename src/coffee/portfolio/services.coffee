@@ -33,8 +33,9 @@ angular.module('portfolioApp.services', [])
             }
 
 
-        Portfolio.loadProjects = ->
-            Portfolio.projects = Projects.all()
+        Portfolio.loadProjects = (cb) ->
+            Portfolio.projects = Projects.all({}, cb)
+
 
         Portfolio.getProject = (id) ->
             _currentProject = $portfolio.get({
@@ -44,7 +45,6 @@ angular.module('portfolioApp.services', [])
 
 
         Portfolio.getProjects = ->
-            Portfolio.loadProjects() if not Portfolio.projects
             Portfolio.projects
 
 
@@ -56,8 +56,9 @@ angular.module('portfolioApp.services', [])
 
 
         Portfolio.getCurrentProjectCards = ->
-            Cards.query
-                id: _currentProject.id
+            if _currentProject
+                Cards.query
+                    id: _currentProject.id
 
 
         Portfolio.onProjectLoaded = ($scope, handle) ->

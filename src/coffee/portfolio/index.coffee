@@ -18,6 +18,24 @@ angular.module('portfolioApp', [
             .when '/projects/:id',
                 templateUrl: 'portfolio/cardsList.html'
                 controller: 'CardListCtrl'
+                resolve:
+                    project: ['Portfolio', '$route', '$q', (Portfolio, $route, $q) ->
+                        deferred = $q.defer()
+
+                        id = +$route.current.params.id
+
+                        if Portfolio.projects.data
+                            angular.forEach Portfolio.projects.data, (project) ->
+                                if project.id is id
+                                    deferred.resolve project
+                        else
+                            Portfolio.loadProjects (result) ->
+                                angular.forEach result.data, (project) ->
+                                    if project.id is id
+                                        deferred.resolve project
+
+                        deferred.promise
+                    ]
             .when '/projects/:id/edit',
                 templateUrl: 'portfolio/project-edit.html'
                 controller: 'ProjectEditCtrl'
