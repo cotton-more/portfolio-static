@@ -10,14 +10,14 @@ angular.module('portfolioApp', [
         $routeProvider
             .when '/index',
                 templateUrl: 'portfolio/portfolio.html'
-            .when '/portfolio/projects/new',
+            .when '/projects/new',
                 templateUrl: 'portfolio/project-new.html'
                 controller: 'ProjectNewCtrl'
                 authOnly: true
-            .when '/portfolio/projects/:id',
+            .when '/projects/:id',
                 templateUrl: 'portfolio/cardsList.html'
                 controller: 'CardListCtrl'
-            .when '/portfolio/projects/:id/edit',
+            .when '/projects/:id/edit',
                 templateUrl: 'portfolio/project-edit.html'
                 controller: 'ProjectEditCtrl'
                 authOnly: true
