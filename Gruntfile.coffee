@@ -2,6 +2,7 @@
 
 module.exports = (grunt) ->
     require('matchdep').filterDev('grunt-*').forEach grunt.loadNpmTasks
+    require('time-grunt')(grunt)
 
     grunt.initConfig
         buildDir: 'build'
@@ -16,29 +17,21 @@ module.exports = (grunt) ->
              * Copyright © <%= grunt.template.today("yyyy") %> <%= pkg.author %>
              * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>
              */\n"""
-        ###
-            This is a collection of file definitions we use in the configuration of
-            build tasks. `js` is all project javascript, less tests. `atpl` contains
-            our reusable components' template HTML files, while `ctpl` contains the
-            same, but for our app's code. `html` is just our main HTML file and
-            `less` is our main stylesheet.
-        ###
-        src:
-            coffee: [ 'src/coffee/**/*.coffee', '!src/coffee/**/*.spec.coffee' ]
-            less: 'src/less/stylesheet.less'
-            tpls: [
-                #'src/views/**/*.html'
-                'src/coffee/**/*.html'
-            ]
+        app:
+            scripts: 'app/scripts/**/*.coffee'
+            styles: 'app/styles/stylesheet.less'
+            tpls: 'app/scripts/**/*.html'
 
         vendor:
-            js: [
-                'vendor/jquery/jquery.js'
-                'vendor/foundation/foundation.min.js'
-                'vendor/angular/angular.min.js'
-                'vendor/angular-route/angular-route.min.js'
-                'vendor/angular-resource/angular-resource.min.js'
+            angular: [
+                'app/bower_components/angular/index.js'
+                'app/bower_components/angular-route/index.js'
+                'app/bower_components/angular-resource/index.js'
+                'app/bower_components/angular-animate/index.js'
+                'app/bower_components/angular-cookies/index.js'
             ]
+            twitter: [ 'app/bower_components/twitter/js/*.js' ]
+            jquery: 'app/bower_components/jquery/jquery.min.js'
 
         clean:
             tmp: [ '.tmp' ]
@@ -49,73 +42,63 @@ module.exports = (grunt) ->
             assets:
                 files: [
                     expand: true
-                    cwd: 'src/assets/'
+                    cwd: 'app/assets/'
                     src: [ '**' ]
                     dest: '<%= buildDir %>'
                 ]
         recess:
             build:
-                src: [ '<%= src.less %>' ],
-                dest: '<%= buildDir %>/styles/<%= pkg.name %>.css',
                 options:
                     compile: true
                     compress: true
+                src: [ '<%= app.styles %>' ],
+                dest: '<%= buildDir %>/styles/<%= pkg.name %>.css',
 
         coffee:
             build:
                 options:
-                    bare: true
-                files: [
-                    expand: true,
-                    cwd: 'src/coffee',
-                    src: [ '**/*.coffee' ],
-                    dest: '.tmp/scripts/',
-                    ext: '.js'
-                ]
+                    sourceMap: true
+                src: '<%= app.scripts %>'
+                dest: '<%= buildDir %>/scripts/<%= pkg.name %>.js'
 
         concat:
-            build:
-                options:
-                    banner: '<%= meta.banner %>'
+            vendor:
                 src: [
-                    'module.prefix'
-                    '.tmp/scripts/**/*.js'
-                    'module.suffix'
+                    '<%= vendor.jquery %>'
+                    '<%= uglify.twitter.dest %>'
+                    '<%= vendor.angular %>'
                 ]
-                dest: '<%= buildDir %>/scripts/<%= pkg.name %>.js'
-            libs:
-                src: [ '<%= vendor.js %>' ]
                 dest: '<%= buildDir %>/scripts/libs.js'
 
         # Annotate angular sources
         ngmin:
             build:
-                src: [ '<%= buildDir %>/scripts/<%= pkg.name %>.js' ]
+                src: '<%= coffee.build.dest %>'
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js'
 
         html2js:
             tpls:
                 options:
-                    base: 'src/coffee'
+                    base: 'app/scripts'
                     module: '<%= pkg.name %>.tpls'
-                src: [
-                    '<%= src.tpls %>'
-                ]
+                src: '<%= app.tpls %>'
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.js'
+
         # Minify the sources!
         uglify:
+            twitter:
+                dest: '.tmp/scripts/twitter.min.js'
+                src: '<%= vendor.twitter %>'
             build:
                 options:
                     banner: '<%= meta.banner %>'
-                files:
-                    '<%= buildDir %>/scripts/<%= pkg.name %>.min.js': [ '<%= buildDir %>/scripts/<%= pkg.name %>.annotated.js' ]
-            tpls:
-                files:
-                    '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.min.js': '<%= buildDir %>/scripts/<%= pkg.name %>.tpls.js'
+                dest: '<%= buildDir %>/scripts/<%= pkg.name %>.min.js'
+                src: [
+                    '<%= html2js.tpls.dest %>'
+                    '<%= ngmin.build.dest %>'
+                ]
 
         delta:
-            options:
-                livereload: true
             assets:
                 files: [ 'src/assets/**' ]
                 tasks: [ 'clean:assets', 'copy:assets' ]
@@ -128,7 +111,6 @@ module.exports = (grunt) ->
             coffee:
                 files: [ '<%= src.coffee %>' ]
                 tasks: [
-                    # 'clean:tmp'
                     'coffee:build'
                     'concat:build'
                     'ngmin:build'
@@ -150,18 +132,10 @@ module.exports = (grunt) ->
     grunt.registerTask 'build', [
         'clean'
         'recess'
-        'coffee:build'
-        'concat'
-        'ngmin:build'
+        'coffee'
         'html2js'
+        'ngmin'
         'uglify'
+        'concat'
         'copy'
-    ]
-
-    grunt.registerTask 'build-coffee', [
-        'clean:tmp'
-        'coffee:build'
-        'concat:build'
-        'ngmin:build'
-        'uglify:build'
     ]

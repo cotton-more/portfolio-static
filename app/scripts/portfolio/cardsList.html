@@ -1,0 +1,27 @@
+<h1>
+    {{ project.name }}
+    <small data-auth><a class="btn btn-link" href="#!{{project.url}}/edit"><i class="foundicon-edit"></i></a></small>
+</h1>
+
+<div class="tags" data-ng-show="project.tags">
+    <span class="tag label label-info" data-ng-repeat="tag in project.tags">{{ tag }}</span>
+</div>
+
+<div class="well" data-ng-show="project.about">
+    {{ project.about }}
+</div>
+
+<a class="btn btn-link" href="#!/index/"><i class="icon icon-arrow-left"></i> Back</a>
+
+<div id="slider" data-slider="cards.data">
+    <ul data-orbit data-options="bullets: false; timer_speed: 0;">
+        <li data-slide data-ng-repeat="card in cards">
+            <img src="http://placehold.it/600x400">
+            <div class="orbit-caption">
+                <p>{{card.name}}</p>
+            </div>
+        </li>
+    </ul>
+
+    <p>{{ card.name }}</p>
+</div>

@@ -1,0 +1,26 @@
+<form>
+    <fieldset>
+        <legend>Edit project</legend>
+        <div class="row">
+            <div class="large-6 small-12 columns">
+                <label>Name</label>
+                <input type="text" data-ng-model="project.name">
+            </div>
+            <div class="large-6 small-12 columns">
+                <label>Tags</label>
+                <input type="text" data-ng-list data-ng-model="project.tags">
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>About</label>
+                <textarea data-ng-model="project.about"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <button class="button small" data-ng-click="save()">Save</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

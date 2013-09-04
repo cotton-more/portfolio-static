@@ -1,0 +1,18 @@
+<form id="login-form">
+    <fieldset>
+        <legend>Log in</legend>
+        <div class="row">
+            <div class="large-6 columns">
+                <label>Email</label>
+                <input type="text" ng-model="user.email">
+            </div>
+            <div class="large-6 columns">
+                <label>Password</label>
+                <input type="text" ng-model="user.password">
+            </div>
+            <div class="large-12 columns text-right">
+                <a class="button small" ng-click="login()">Login</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
