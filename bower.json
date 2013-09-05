@@ -14,11 +14,16 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "http://code.angularjs.org/1.2.0rc1/angular.min.js",
-    "angular-animate": "http://code.angularjs.org/1.2.0rc1/angular-animate.min.js",
-    "angular-cookies": "http://code.angularjs.org/1.2.0rc1/angular-cookies.min.js",
-    "angular-resource": "http://code.angularjs.org/1.2.0rc1/angular-resource.min.js",
-    "angular-route": "http://code.angularjs.org/1.2.0rc1/angular-route.min.js",
+    "angular": "http://code.angularjs.org/1.2.0-rc.2/angular.min.js",
+    "angular-map": "http://code.angularjs.org/1.2.0-rc.2/angular.min.js.map",
+    "angular-animate": "http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js",
+    "angular-animate-map": "http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js.map",
+    "angular-cookies": "http://code.angularjs.org/1.2.0-rc.2/angular-cookies.min.js",
+    "angular-cookies-map": "http://code.angularjs.org/1.2.0-rc.2/angular-cookies.min.js.map",
+    "angular-resource": "http://code.angularjs.org/1.2.0-rc.2/angular-resource.min.js",
+    "angular-resource-map": "http://code.angularjs.org/1.2.0-rc.2/angular-resource.min.js.map",
+    "angular-route": "http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js",
+    "angular-route-map": "http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js.map",
     "twitter": "~3.0.0"
   }
 }

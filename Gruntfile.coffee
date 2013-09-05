@@ -30,7 +30,7 @@ module.exports = (grunt) ->
                 'app/bower_components/angular-animate/index.js'
                 'app/bower_components/angular-cookies/index.js'
             ]
-            twitter: [ 'app/bower_components/twitter/js/*.js' ]
+            twitter: 'app/bower_components/twitter/dist/js/bootstrap.min.js'
             jquery: 'app/bower_components/jquery/jquery.min.js'
 
         clean:
@@ -46,6 +46,67 @@ module.exports = (grunt) ->
                     src: [ '**' ]
                     dest: '<%= buildDir %>'
                 ]
+            vendor:
+                files: [
+                    expand: true
+                    flatten: true
+                    src: [
+                        '<%= vendor.jquery %>'
+                        'app/bower_components/jquery/jquery.min.map'
+                        '<%= vendor.twitter %>'
+                    ]
+                    dest: '<%= buildDir %>/scripts/'
+                ]
+            angular:
+                options:
+                    expand: true
+                    flatten: true
+                files: [
+                    {
+                        src:'app/bower_components/angular/index.js'
+                        dest: '<%= buildDir %>/scripts/angular.min.js'
+                    }
+                    {
+                        src:'app/bower_components/angular-route/index.js'
+                        dest: '<%= buildDir %>/scripts/angular-route.min.js'
+                    }
+                    {
+                        src:'app/bower_components/angular-animate/index.js'
+                        dest: '<%= buildDir %>/scripts/angular-animate.min.js'
+                    }
+                    {
+                        src:'app/bower_components/angular-cookies/index.js'
+                        dest: '<%= buildDir %>/scripts/angular-cookies.min.js'
+                    }
+                    {
+                        src:'app/bower_components/angular-resource/index.js'
+                        dest: '<%= buildDir %>/scripts/angular-resource.min.js'
+                    }
+                ]
+            angularMap:
+                files: [
+                    {
+                        src:'app/bower_components/angular-animate-map/index.map'
+                        dest: '<%= buildDir %>/scripts/angular-animate.min.js.map'
+                    }
+                    {
+                        src:'app/bower_components/angular-cookies-map/index.map'
+                        dest: '<%= buildDir %>/scripts/angular-cookies.min.js.map'
+                    }
+                    {
+                        src:'app/bower_components/angular-map/index.map'
+                        dest: '<%= buildDir %>/scripts/angular.min.js.map'
+                    }
+                    {
+                        src:'app/bower_components/angular-resource-map/index.map'
+                        dest: '<%= buildDir %>/scripts/angular-resource.min.js.map'
+                    }
+                    {
+                        src:'app/bower_components/angular-route-map/index.map'
+                        dest: '<%= buildDir %>/scripts/angular-route.min.js.map'
+                    }
+                ]
+
         recess:
             build:
                 options:
@@ -55,20 +116,16 @@ module.exports = (grunt) ->
                 dest: '<%= buildDir %>/styles/<%= pkg.name %>.css',
 
         coffee:
+            options:
+                sourceMap: true
             build:
-                options:
-                    sourceMap: true
                 src: '<%= app.scripts %>'
                 dest: '<%= buildDir %>/scripts/<%= pkg.name %>.js'
 
         concat:
-            vendor:
-                src: [
-                    '<%= vendor.jquery %>'
-                    '<%= uglify.twitter.dest %>'
-                    '<%= vendor.angular %>'
-                ]
-                dest: '<%= buildDir %>/scripts/libs.js'
+            angular:
+                src: '<%= vendor.angular %>'
+                dest: '<%= buildDir %>/scripts/angular.js'
 
         # Annotate angular sources
         ngmin:
@@ -86,9 +143,6 @@ module.exports = (grunt) ->
 
         # Minify the sources!
         uglify:
-            twitter:
-                dest: '.tmp/scripts/twitter.min.js'
-                src: '<%= vendor.twitter %>'
             build:
                 options:
                     banner: '<%= meta.banner %>'
@@ -130,12 +184,12 @@ module.exports = (grunt) ->
     # The default task is to build.
     grunt.registerTask 'default', [ 'build' ]
     grunt.registerTask 'build', [
-        'clean'
+        'clean:build'
         'recess'
         'coffee'
         'html2js'
         'ngmin'
+        # 'concat'
         'uglify'
-        'concat'
         'copy'
     ]
